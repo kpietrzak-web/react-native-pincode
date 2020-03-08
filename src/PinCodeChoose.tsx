@@ -3,6 +3,7 @@ import PinCode, { PinStatus } from './PinCode'
 import * as React from 'react'
 import { StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native'
 import * as Keychain from 'react-native-keychain'
+import { STORAGE_TYPE } from "react-native-keychain";
 
 /**
  * Pin Code Choose PIN Page
@@ -96,7 +97,8 @@ class PinCodeChoose extends React.PureComponent<IProps, IState> {
         await Keychain.setInternetCredentials(
           this.props.pinCodeKeychainName,
           this.props.pinCodeKeychainName,
-          pinCode
+          pinCode,
+          { storage: STORAGE_TYPE.AES }
         )
       }
       if (!!this.props.finishProcess) this.props.finishProcess(pinCode)

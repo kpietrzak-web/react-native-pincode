@@ -14,6 +14,7 @@ import {
 import * as Keychain from 'react-native-keychain'
 import TouchID from 'react-native-touch-id'
 import time, {TimeType} from "./time";
+import { STORAGE_TYPE } from "react-native-keychain";
 
 /**
  * Pin Code Enter PIN Page
@@ -109,7 +110,8 @@ class PinCodeEnter extends React.PureComponent<IProps, IState> {
   async componentWillMount() {
     if (!this.props.storedPin) {
       const result = await Keychain.getInternetCredentials(
-        this.props.pinCodeKeychainName
+        this.props.pinCodeKeychainName,
+        { storage: STORAGE_TYPE.AES }
       )
       this.keyChainResult = result.password || undefined
     }
